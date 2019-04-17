@@ -8,6 +8,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 })
 export class DeveloperEntryComponent implements OnInit {
 
+  hasErrors = false;
   developerForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
@@ -28,9 +29,15 @@ export class DeveloperEntryComponent implements OnInit {
 
 
   onSubmit(focusme: HTMLInputElement) {
-    console.log(this.developerForm.value);
-    this.developerForm.reset();
-    focusme.focus();
+    if (this.developerForm.valid) {
+
+      console.log(this.developerForm.value);
+      this.developerForm.reset();
+      focusme.focus();
+      this.hasErrors = false;
+    } else {
+      this.hasErrors = true;
+    }
   }
 
   get firstName() {

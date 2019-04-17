@@ -37,8 +37,12 @@
   </div>
   <input type="submit"
          value="Add Developer"
-         class="btn btn-primary"
-         [disabled]="developerForm.invalid">
+         class="btn btn-primary">
+  <div class="alert alert-danger"
+       *ngIf="hasErrors">
+    Fix your errors slacker
+  </div>
+
 </form>
 
-<pre>{{developerForm.valid | json}}</pre>
+<!-- <pre>{{developerForm.valid | json}}</pre> -->
