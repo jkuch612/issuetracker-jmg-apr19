@@ -8,7 +8,7 @@ import { developerEntity } from '../reducers/developers.reducer';
 @Injectable()
 export class DeveloperEffects {
 
-  uri = 'http://localhost:3000/developers';
+  readonly uri = 'http://localhost:3000/developers';
   @Effect() loadDevelopers$ = this.actions$
     .pipe(
       ofType(developerActions.LOAD_DEVELOPERS),

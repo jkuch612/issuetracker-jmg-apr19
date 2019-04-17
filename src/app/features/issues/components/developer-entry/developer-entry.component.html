@@ -1,3 +1,44 @@
-<p>
-  developer-entry works!
-</p>
+<form [formGroup]="developerForm"
+      (ngSubmit)="onSubmit(focusme)">
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input class="form-control"
+           #focusme
+           formControlName="firstName"
+           name="firstName">
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last Name</label>
+    <input class="form-control"
+           formControlName="lastName"
+           name="lastName">
+  </div>
+  <div class="form-group">
+    <label for="department">Department</label>
+    <select class="form-control"
+            formControlName="department">
+      <option value="ero">ERO</option>
+      <option value="claims">Claims</option>
+      <option value="quoting">Quoting</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="emailAddress">Email Address</label>
+    <input type="email"
+           formControlName="emailAdress"
+           class="form-control">
+    <div class="alert alert-danger"
+         *ngIf="(emailAdress.dirty || emailAdress.touched) && emailAdress.errors">
+      {{emailAdress.errors | json}}
+      <div *ngIf="emailAdress.errors['required']">You have to give us an email.</div>
+      <div *ngIf="emailAdress.errors['email']">You have to give us a real email.</div>
+      <div *ngIf="emailAdress.errors['jerk']">We do not hire jerks here.</div>
+    </div>
+  </div>
+  <input type="submit"
+         value="Add Developer"
+         class="btn btn-primary"
+         [disabled]="developerForm.invalid">
+</form>
+
+<pre>{{developerForm.valid | json}}</pre>
