@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AddedDeveloper } from '../../actions/developer.actions';
+import { State } from '../../reducers';
 
 @Component({
   selector: 'app-developer-entry',
@@ -11,7 +14,7 @@ export class DeveloperEntryComponent implements OnInit {
   hasErrors = false;
   developerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private store: Store<State>) { }
 
   ngOnInit() {
     this.developerForm = this.formBuilder.group({
@@ -24,14 +27,15 @@ export class DeveloperEntryComponent implements OnInit {
       }]
     });
 
-    this.developerForm.valueChanges.subscribe(v => console.log(v));
+    //this.developerForm.valueChanges.subscribe(v => console.log(v));
   }
 
 
   onSubmit(focusme: HTMLInputElement) {
     if (this.developerForm.valid) {
 
-      console.log(this.developerForm.value);
+      const { firstName, lastName, department: team } = this.developerForm.value;
+      this.store.dispatch(new AddedDeveloper(firstName, lastName, team));
       this.developerForm.reset();
       focusme.focus();
       this.hasErrors = false;

@@ -7,4 +7,11 @@ export class ApplicationStarted
   constructor() { }
 }
 
-export type ApplicationActions = ApplicationStarted;
+export const APPPLICATION_ERROR = '[Applicaiton] error';
+export class ApplicationError
+  implements Action {
+  readonly type = APPPLICATION_ERROR;
+  constructor(public message: string, public feature: string) { }
+}
+
+export type ApplicationActions = ApplicationStarted | ApplicationError;
