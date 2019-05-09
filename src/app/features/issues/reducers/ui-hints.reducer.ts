@@ -14,11 +14,13 @@ export function reducer(state: State = initialState, action: Action): State {
   switch (action.type) {
     case fromDeveloperActions.LOAD_DEVELOPERS: {
       return {
+        ...state,
         developersLoaded: false
       };
     }
     case fromDeveloperActions.LOAD_DEVELOPERS_SUCCESS: {
       return {
+        ...state,
         developersLoaded: true
       };
     }

@@ -1,0 +1,31 @@
+<h3>{{(issue$ | async).title}}</h3>
+<div>Date Submitted: {{(issue$ | async).dateSubmitted}} </div>
+<p> {{(issue$ | async).description}} </p>
+
+<form [formGroup]="developerForm"
+      (ngSubmit)="submit()">
+  <div class="form-group">
+    <label for="developer">Assign to Developer</label>
+    <select class="form-control"
+            #focusme
+            formControlName="developer"
+            name="developer">
+      <option *ngFor='let developer of developer$ | async'
+              [value]="developer.firstName + ' ' + developer.lastName">
+        {{developer.firstName + ' ' + developer.lastName}}
+      </option>
+    </select>
+    <div class="alert alert-danger"
+         *ngIf="(developer.dirty || developer.touched) && developer.errors">
+      <div *ngIf="developer.errors['required']">You have to select a developer.</div>
+    </div>
+  </div>
+  <input type="submit"
+         value="assign"
+         class="btn btn-primary">
+  <div class="alert alert-danger"
+       *ngIf="hasErrors">
+    Fix your errors please
+  </div>
+
+</form>

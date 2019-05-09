@@ -1,3 +1,17 @@
-<p>
-  overview works!
-</p>
+<h3>Defects</h3>
+<a [routerLinkActive]="['active']"
+   [routerLink]="['/issues/issueentry']">Add new issue</a>
+<div class="row">
+  <div class="col">
+    <app-issue-list [listType]="'Unassigned'"
+                    [issues]="unassignedIssue$ | async"></app-issue-list>
+  </div>
+  <div class="col">
+    <app-issue-list [listType]="'Assigned'"
+                    [issues]="assignedIssue$ | async"></app-issue-list>
+  </div>
+  <div class="col">
+    <app-issue-list [listType]="'Completed'"
+                    [issues]="completedIssue$ | async"></app-issue-list>
+  </div>
+</div>

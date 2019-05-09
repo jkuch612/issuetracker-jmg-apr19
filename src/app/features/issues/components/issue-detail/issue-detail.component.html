@@ -1,0 +1,28 @@
+<h3>{{(issue$ | async).title}}</h3>
+<div>Date Submitted: {{(issue$ | async).dateSubmitted}} </div>
+<div class="mb-1">Assigned Developer: {{(issue$ | async).assignedDeveloper}}</div>
+<p> {{(issue$ | async).description}} </p>
+
+<form [formGroup]="issueForm"
+      (ngSubmit)="submit()">
+  <div class="form-group">
+    <label for="commitHash">Commit Hash</label>
+    <input class="form-control"
+           formControlName="commitHash"
+           name="commitHash">
+    <div class="alert alert-danger"
+         *ngIf="(commitHash.dirty || commitHash.touched) && commitHash.errors">
+      <div *ngIf="commitHash.errors['required']">Please enter a commit hash.</div>
+    </div>
+  </div>
+  <input type="submit"
+         value="Complete"
+         class="btn btn-primary">
+  <button class="btn btn-primary ml-1"
+          (click)="unassign()">Unassign</button>
+  <div class="alert alert-danger"
+       *ngIf="hasErrors">
+    Fix your errors please
+  </div>
+
+</form>
